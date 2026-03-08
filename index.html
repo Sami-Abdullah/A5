@@ -49,16 +49,24 @@
       <button class="btn text-[#64748bFF] px-9 sm:px-12">Close</button>
     </section>
     <!-- issue tracker heading -->
-    <section>
-      <div>
-        <div><img src="./assets/Aperture.png" alt=""></div>
+    <section class="p-6 flex justify-between">
+      <div class="rigt flex  items-center gap-2">
+        <div class="p-3 bg-[#ece4ffFF] rounded-full"><img src="./assets/Aperture.png" alt=""></div>
         <div>
-          <h2><span>50</span> Issues</h2>
-          <p>Track and manage your project issues</p>
+          <h2 class="font-semibold"><span>50</span> Issues</h2>
+          
+          <p class="text-[#64748bFF] hidden sm:block">Track and manage your project issues</p>
         </div>
       </div>
-      <div>
-        <div></div>
+      <div class="left flex gap-4">
+        <div class="open flex items-center gap-2">
+          <div class="h-3 w-3 bg-[#00a96eFF] rounded-full"></div>
+          <p class="font-medium">Open</p>
+        </div>
+        <div class="close flex items-center gap-2">
+          <div class="h-3 w-3 bg-[#a855f7FF] rounded-full"></div>
+          <p class="font-medium">Closeed</p>
+        </div>
       </div>
     </section>
   </main>

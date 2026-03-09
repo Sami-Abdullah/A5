@@ -168,7 +168,7 @@ document.getElementById("list-section").addEventListener("click", (event) => {
 
 
 document.getElementById("search-btn").addEventListener("click", async () => {
-  const value = document.getElementById("search-id").value.trim()
+  const value = document.getElementById("search-id").value.trim().toLowerCase()
   const response = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${value}`)
   const data = await response.json()
   displayList(data.data)

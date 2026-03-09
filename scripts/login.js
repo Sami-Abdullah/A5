@@ -5,5 +5,7 @@ const isAdmin = ()=>{
     window.alert("invalid credentails")
     return;
   }
-  window.location.href = "index.html"
+  document.getElementById("login-page").classList.add("hidden")
+  document.getElementById("index-page").classList.remove("hidden")
+  
 }

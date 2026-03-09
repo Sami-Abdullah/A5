@@ -60,12 +60,13 @@ const displayList = (data) => {
           </div>
         </div>`
   });
+  manageAnimation(false)
 }
 
 loadData()
-
+// all, open, close
 document.getElementById("buttons").addEventListener("click", async (event) => {
-
+  manageAnimation(true)
   const response = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
   const data = await response.json()
   const issueData = data.data
@@ -97,6 +98,7 @@ document.getElementById("buttons").addEventListener("click", async (event) => {
     count.innerHTML = issueData.length;
     displayList(issueData)
   }
+  
 })
 
 
@@ -105,7 +107,7 @@ const loadDetails = async (id) => {
   const data = await response.json();
 
   const details = data.data
-  displayDetails (details)
+  displayDetails(details)
 
 }
 const displayDetails = (details) => {
@@ -115,7 +117,7 @@ const displayDetails = (details) => {
 
       <div class="flex gap-2">
 
-        <div class="px-4 py-2 font-medium rounded-xl text-xs text-[#ffffffFF] bg-[${details.status === 'open'?'#00a96eFF':'#a855f7FF'}]">${details.status}</div>
+        <div class="px-4 py-2 font-medium rounded-xl text-xs text-[#ffffffFF] bg-[${details.status === 'open' ? '#00a96eFF' : '#a855f7FF'}]">${details.status}</div>
 
         <div class="flex gap-2 items-center">
           <div class="w-2 h-2 rounded-full bg-[#64748bFF]"></div>
@@ -141,8 +143,8 @@ const displayDetails = (details) => {
         <div class= "flex flex-col items-start">
           <h2 class="text-[#64748bFF] mb-2">Priority:</h2>
           ${details.priority === "high" ? '<span class=" text-xs font-medium text-[#ef4444FF] bg-[#feececFF] px-6 py-2 rounded-[100px]">HIGH</span>' : details.priority === "medium" ?
-        '<span class="text-xs font-medium text-[#f59e0bFF] bg-[#fff6d1FF] px-6 py-2 rounded-[100px]">MEDIUM</span>' :
-        '<span class="text-xs font-medium text-[#9ca3afFF] bg-[#eeeff2FF] px-6 py-2 rounded-[100px]">LOW</span>'
+      '<span class="text-xs font-medium text-[#f59e0bFF] bg-[#fff6d1FF] px-6 py-2 rounded-[100px]">MEDIUM</span>' :
+      '<span class="text-xs font-medium text-[#9ca3afFF] bg-[#eeeff2FF] px-6 py-2 rounded-[100px]">LOW</span>'
     }
         </div>
       </div>
@@ -154,21 +156,31 @@ const displayDetails = (details) => {
       </div>
     
   `;
-    document.getElementById("my_modal_1").showModal();
+  document.getElementById("my_modal_1").showModal();
 }
 
 document.getElementById("list-section").addEventListener("click", (event) => {
   const card = event.target.closest(".card")
   if (card) {
-    loadDetails(card.id) 
+    loadDetails(card.id)
   }
 })
 
 
-document.getElementById("search-btn").addEventListener("click", async ()=>{
+document.getElementById("search-btn").addEventListener("click", async () => {
   const value = document.getElementById("search-id").value.trim()
   const response = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${value}`)
   const data = await response.json()
   displayList(data.data)
-  document.getElementById("issue-count-id").innerText=data.data.length
+  document.getElementById("issue-count-id").innerText = data.data.length
 })
+const manageAnimation = (status) => {
+  if (status) {
+    document.getElementById("loading-animation").classList.remove("hidden")
+    document.getElementById("list-section").classList.add("hidden")
+  } else {
+    document.getElementById("loading-animation").classList.add("hidden")
+    document.getElementById("list-section").classList.remove("hidden")
+  }
+
+}
